@@ -21,8 +21,8 @@ db.once('open', ()=>{
 app.use(express.json());
 
 app.use('/', require('./routes/base.js'));
-app.use('/api/livres', require('./routes/livres'));
-app.use('/api/users', require('./routes/users'));
+app.use('/api/messages', require('./routes/messages'));
+
 
 app.listen(PORT);
 console.log(`Serveur Web fonctionnel sur le port ${PORT}`);

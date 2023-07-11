@@ -4,7 +4,7 @@
 
 const mongoose = require('mongoose');
 
-let schemaLivre = mongoose.Schema({
+let schemaMessage = mongoose.Schema({
     _id: {
         type: String,
         required: true
@@ -17,60 +17,52 @@ let schemaLivre = mongoose.Schema({
         type: String,
         required: true
     },
-    editeur: {
-        type: String,
-        required: true
-    },
-    nbPages: {
-        type: Number,
-        required: true
-    },
-    langue: {
-        type: String,
-        required: true
-    },
-    prix: {
-        type: Number,
-        required: true
-    },
-    resume: {
+    description: {
         type: String,
         required: true
     },
     date: {
         type: String,
         required: true
+    },
+    langue: {
+        type: String,
+        required: true
+    },
+    commentaires: {
+        type: Array,
+        required: true
     }
 });
 
-let Livres = module.exports = mongoose.model('livres', schemaLivre);
+let Messages = module.exports = mongoose.model('messages', schemaMessage);
 
-// fonction pour obtenir tous les livres de la collection
+// fonction pour obtenir tous les messages de la collection
 // reçoit en paramètre un callback et le nombre maximum (limit) de livres à retourner
-module.exports.getLivres = (callback, limit) => {
-    Livres.find(callback).limit(limit);
+module.exports.getMessages = (callback, limit) => {
+    Messages.find(callback).limit(limit).sort({date: -1});
 }
 
 // fonction pour obtenir tous les livres de la collection qui correspondent à l'ISBN
 // reçoit en paramètre un ISBN, une fonction callback et le nombre maximum (limit) de livres à retourner
-module.exports.getLivresParISBN = (isbn, callback, limit) => {
-    let filtre = {"_id": isbn};
-    Livres.find(filtre, callback).limit(limit);
+module.exports.getMessagesParID = (id, callback, limit) => {
+    let filtre = {"_id": id};
+    Messages.find(filtre, callback).limit(limit);
 }
 
 // fonction pour obtenir tous les livres de la collection qui contiennent une partie d'un champ
 // reçoit en paramètre le champ, les caractères à chercher dans le champ, une fonction callback et le nombre maximum (limit) de livres à retourner
-module.exports.getLivresParChamp = (champ, critere, callback, limit) => {
+module.exports.getMessagesParChamp = (champ, critere, callback, limit) => {
     let filtre = {[champ]: RegExp(critere, "i")};
     console.log(filtre);
-    Livres.find(filtre, callback).limit(limit);
+    Messages.find(filtre, callback).limit(limit).sort({date: -1});
 }
 
 // fonction pour ajouter un livre dans la collection
 // reçoit en paramètre le livre à ajouter et une fonction callback
-module.exports.ajoutLivre = (livre, callback) => {
+module.exports.ajoutMessage = (message, callback) => {
     // validation du format du livre reçu en paramètre
-    Livres.create(livre, callback);
+    Messages.create(message, callback);
 }
 
 // fonction pour modifier un livre dans la collection
@@ -78,28 +70,26 @@ module.exports.ajoutLivre = (livre, callback) => {
 // - l'identifiant du livre à modifier (le isbn qui est aussi le _id dans la collection)
 // - le livre à modifier (les nouvelles valeurs) et 
 // - une fonction callback
-module.exports.modifierLivre = (isbn, livre, callback) => {
+module.exports.modifierMessage = (id, mess, callback) => {
     // validation du format du livre reçu en paramètre (plus tard)
-    let filtre = {"_id": isbn};
+    let filtre = {"_id": id};
     let options = {};
-    let nouveauLivre = {
-        titre: livre.titre,
-        "auteur": livre.auteur,
-        "editeur": livre.editeur,
-        "nbPages": livre.nbPages,
-        "langue": livre.langue,
-        "prix": livre.prix,
-        "resume": livre.resume,
-        "date": livre.date
+    let nouveauMess = {
+        titre: mess.titre,
+        "auteur": mess.auteur,
+        "description": mess.description,
+        "langue": mess.langue,
+        "date": mess.date,
+        "commentaires": mess.commentaires
     };
-    Livres.findOneAndUpdate(filtre, nouveauLivre, options, callback);
+    Messages.findOneAndUpdate(filtre, nouveauMess, options, callback);
 };
 // fonction pour supprimer un livre de la collection
 // reçoit en paramètres:
 // - l'identifiant du livre à supprimer (le isbn qui est aussi le _id dans la collection)
 // - une fonction callback
-module.exports.supprimerLivre = (isbn, callback) => {
-    let filtre = {"_id": isbn};
-    Livres.deleteOne(filtre, callback);
+module.exports.supprimerMessage = (id, callback) => {
+    let filtre = {"_id": id};
+    Messages.deleteOne(filtre, callback);
 }
 

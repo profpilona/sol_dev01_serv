@@ -2,111 +2,75 @@
 // date: 4 juillet 2023
 // Fichier de tests des différentes fonctions de mon API REST
 
-// test de API pour récupérer tous les livres
+// test de API pour récupérer tous les messages
 ###
-GET http://127.0.0.1:8000/api/livres
+GET http://127.0.0.1:8000/api/messages
 
-// test de API pour récupérer tous les livres dont l'isbn est demandé
+// test de API pour récupérer tous les messages dont l'isbn est demandé
 ###
-GET http://127.0.0.1:8000/api/livres/isbn/9782896152254
+GET http://127.0.0.1:8000/api/messages/123
 
-// test de API pour récupérer tous les livres qui contiennent un titre
+// test de API pour récupérer tous les messages dont l'isbn est demandé
 ###
-GET http://127.0.0.1:8000/api/livres/titre/café
+GET http://127.0.0.1:8000/api/messages/12344
 
-// test de API pour récupérer tous les livres qui contiennent un titre
+// test de API pour récupérer tous les messages qui contiennent un titre
 ###
-GET http://127.0.0.1:8000/api/livres/titre/flots
+GET http://127.0.0.1:8000/api/messages/description/bla
 
-// test de API pour récupérer tous les livres qui contiennent un certain auteur
+// test de API pour récupérer tous les messages qui contiennent un titre
 ###
-GET http://127.0.0.1:8000/api/livres/auteur/t
+GET http://127.0.0.1:8000/api/messages/titre/222
 
-// test de API pour récupérer tous les livres qui contiennent un certain résumé
+// test de API pour récupérer tous les messages qui contiennent un certain auteur
 ###
-GET http://127.0.0.1:8000/api/livres/resume/noc
+GET http://127.0.0.1:8000/api/messages/auteur/jo
 
-// test de API pour récupérer tous les livres qui contiennent un certain auteur
+// test. de API POST pour ajouter un messages dans la BD
 ###
-GET http://127.0.0.1:8000/api/livres/auteur/o
-
-// test. de API POST pour ajouter un livre dans la BD
-###
-POST http://127.0.0.1:8000/api/livres
+POST http://127.0.0.1:8000/api/messages
 Content-type: application/json
 
-{
-    "_id": "9782896151177",
-    "titre": "Mon beau titre",
-    "auteur": "Moi",
-    "editeur": "Lui",
-    "nbPages": 33,
-    "langue": "français/french",
-    "prix": 99.95,
-    "resume": "Bonjour. voici un résumé",
-    "date": "2023-07-31"
-}
+{ "_id": "12344",
+    "titre": "3333 Comment faire fructifier votre argent sans risques",
+    "auteur": "33333@trucmachin.com",
+    "description": "33333 Dans ce sujet nous allons blabla",
+    "date": "2022-10-25T05:00:00.000Z",
+    "langue": "français",
+    "commentaires": [
+       {  "commentaire": "Tu dis n'importe quoi",
+          "auteur": "jtecroispas@ici.com",
+          "date": "2022-10-25T04:00:00.000Z"
+       },
+       {  "commentaire": "autre chose",
+          "auteur": "jtecroispas@ici.com",
+          "date": "2022-10-25T06:00:00.000Z"
+       }]
+  }
 
-// test. de API PUT pour modifier un livre dans la BD
+
+// test. de API PUT pour modifier un messages dans la BD
 ###
-PUT http://127.0.0.1:8000/api/livres/9782896151177
+PUT http://127.0.0.1:8000/api/messages/12344
 Content-type: application/json
 
-{
-    "titre": "Mon NOUVEAU beau titre",
-    "auteur": "Moi en version 2",
-    "editeur": "Lui encore LUI",
-    "nbPages": 99,
-    "langue": "anglais/english",
-    "prix": 999.95,
-    "resume": "Bonjour. voici ENCORE un résumé",
-    "date": "2023-07-28"
-}
+{ 
+    "titre": "4444 Comment faire fructifier votre argent sans risques",
+    "auteur": "4444@trucmachin.com",
+    "description": "4444 Dans ce sujet nous allons blabla",
+    "date": "2022-10-25T05:00:00.000Z",
+    "langue": "français",
+    "commentaires": [
+       {  "commentaire": "Tu dis n'importe quoi",
+          "auteur": "jtecroispas@ici.com",
+          "date": "2022-10-25T04:00:00.000Z"
+       },
+       {  "commentaire": "autre chose",
+          "auteur": "jtecroispas@ici.com",
+          "date": "2022-10-25T06:00:00.000Z"
+       }]
+  }
 
-// test. de API DELETE pour supprimer un livre de la BD
+// test. de API DELETE pour supprimer un message de la BD
 ###
-DELETE http://127.0.0.1:8000/api/livres/9782896151177
-
-// test de API pour récupérer tous les users
-###
-GET http://127.0.0.1:8000/api/users
-
-// test de API pour récupérer tous les usagers dont l'id est demandé
-###
-GET http://127.0.0.1:8000/api/users/_id/64a47added3c0c34dae0ba3c
-
-// test de API pour récupérer tous les usagers qui contiennent un nom donné
-###
-GET http://127.0.0.1:8000/api/users/nom/o
-
-// test de API pour récupérer tous les usagers qui contiennent un login donné
-###
-GET http://127.0.0.1:8000/api/users/login/ai
-
-// test. de API POST pour ajouter un usager dans la BD
-###
-POST http://127.0.0.1:8000/api/users
-Content-type: application/json
-
-{
-    "nom": "Nouveau 4",
-    "login": "nouveau4@gmail.com",
-    "pwd": "1234",
-    "date": "2023-06-29"
-}
-
-// test. de API PUT pour modifier un usager dans la BD
-###
-PUT http://127.0.0.1:8000/api/users/64a47b31ed3c0c34dae0ba41
-Content-type: application/json
-
-{
-    "nom": "Nouveau ABC",
-    "login": "nouveauABC@gmail.com",
-    "pwd": "1234",
-    "date": "2023-06-29"
-}
-
-// test. de API DELETE pour supprimer un usager de la BD
-###
-DELETE http://127.0.0.1:8000/api/users/64a47b31ed3c0c34dae0ba41
+DELETE http://127.0.0.1:8000/api/messages/12344

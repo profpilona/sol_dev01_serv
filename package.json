@@ -1,0 +1,24 @@
+{
+  "name": "solution_dev01",
+  "version": "1.0.0",
+  "description": "par Alain Pilon\r date: 22 juin 2023",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index",
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://profpilona@github.com/profpilona/sol_dev01_serv.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/profpilona/sol_dev01_serv/issues"
+  },
+  "homepage": "https://github.com/profpilona/sol_dev01_serv#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.11.2"
+  }
+}
